@@ -63,6 +63,7 @@ var ReactionTimeContainer = function (_React$Component) {
       key: 'componentDidMount',
       value: function componentDidMount() {
 
+         console.log('hi');
          this.setState({
             phase: 3
          });
