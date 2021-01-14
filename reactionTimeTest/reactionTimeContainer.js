@@ -114,7 +114,6 @@ var ReactionTimeContainer = function (_React$Component) {
          var randomInterval = Math.floor(Math.random() * waitRange) + waitMin;
          this.doNotClickTimer = setTimeout(function () {
             startTime = Date.now();
-            console.log('NOW!');
             this.setState({
                phase: 2
             });
