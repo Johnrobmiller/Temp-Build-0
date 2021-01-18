@@ -67,8 +67,8 @@ var articles = [React.createElement(
   'PAGE 6'
 )];
 
-var gridColors = ['rgb(48, 114, 54)', // green
-'rgb(122, 110, 96)'];
+var gridColors = ['rgb(55, 128, 61)', // green
+'rgb(133, 121, 107)'];
 var gameHeaderText = ['CLICK "GO" TO PLAY', 'REMEMBER THE SEQUENCE...', 'YOUR TURN! CLICK IN THE CORRECT SEQUENCE...', 'CORRECT! LET\'S MAKE IT HARDER NOW...', 'YOU GOT ', ' CORRECT. LET\'S TRY AGAIN...'];
 console.log(gameHeaderText[4]);
 var gridItemsElements = [];
@@ -445,6 +445,10 @@ var Game1 = function (_React$Component) {
                 gridItemsStyles: newGridItemsStyles,
                 clickingOnGridItem: false
               });
+              centerItemElement.style.cursor = 'pointer';
+              for (var _i3 = 0; _i3 < gridItemsElements.length; _i3++) {
+                gridItemsElements[_i3].style.cursor = 'default';
+              }
             }, 250);
           };
 
