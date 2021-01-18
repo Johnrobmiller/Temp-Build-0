@@ -1,806 +1,583 @@
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var articles = [React.createElement(
-  'article',
-  { id: 'page1' },
-  React.createElement(
-    'h6',
-    null,
-    'WHAT IS WORKING MEMORY?'
-  ),
-  'What is working memory? We will answer this question by first exploring what it is ',
-  React.createElement(
-    'em',
-    null,
-    'not.'
-  ),
-  React.createElement('br', null),
-  React.createElement('br', null),
-  'A common misconception is that working memory is the same thing as short-term-memory. However, this is like saying that a car\'s engine is the same thing as the car itself, and it makes the mistake of confusing a part for a whole.  With this said, short-term-memory is but one of several components that make up working memory. These components include:',
-  React.createElement(
-    'ul',
-    null,
-    React.createElement(
-      'li',
-      null,
-      'Your short-term-memory'
-    ),
-    React.createElement(
-      'li',
-      null,
-      'The ability to manipulate/re-arrange the content of your short-term-memory'
-    ),
-    React.createElement(
-      'li',
-      null,
-      'An "executive functioning" component that allows you to exert voluntary control over what goes in/out of your working memory'
-    )
-  ),
-  'Short-term-memory is not very useful without these other components to help it out. Try the exercise on the left to see for yourself! Later on, we will see what happen when the other components are added on top of it!'
-), React.createElement(
-  'article',
-  null,
-  'PAGE 2'
-), React.createElement(
-  'article',
-  null,
-  'PAGE 3'
-), React.createElement(
-  'article',
-  null,
-  'PAGE 4'
-), React.createElement(
-  'article',
-  null,
-  'PAGE 5'
-), React.createElement(
-  'article',
-  null,
-  'PAGE 6'
-)];
+var redCircle = './reaction-time-test/images/redCircle.png';
+var greenCircle = './reaction-time-test/images/greenCircle.png';
+var greenCircleStart = './reaction-time-test/images/greenCircleStart.png';
+var noCircle = './reaction-time-test/images/noCircle.png';
+var pauseCircle = './reaction-time-test/images/pauseCircle.png';
+var starEmpty = './reaction-time-test/images/starEmpty.png';
+var logo = './reaction-time-test/images/logo.png';
+var starFilled = './reaction-time-test/images/starFilled.png';
 
-var gridColors = ['rgb(55, 128, 61)', // green
-'rgb(133, 121, 107)'];
-var gameHeaderText = ['CLICK "GO" TO PLAY', 'REMEMBER THE SEQUENCE...', 'YOUR TURN! CLICK IN THE CORRECT SEQUENCE...', 'CORRECT! LET\'S MAKE IT HARDER NOW...', 'YOU GOT ', ' CORRECT. LET\'S TRY AGAIN...'];
-console.log(gameHeaderText[4]);
-var gridItemsElements = [];
-var centerItemElement = React.createElement('div', null);
+var targetImages = [noCircle, redCircle, greenCircle, greenCircleStart, pauseCircle];
+var reactionTimeString = React.createElement(
+   'span',
+   null,
+   '\u2013'
+);
 
-var Game1 = function (_React$Component) {
-  _inherits(Game1, _React$Component);
+// Left Panel Variables
+var totalAttempts = 0;
+var n = 0;
+var misses = 0;
+var avgTotal = 0;
+var avg10Attempts = 0;
+var varTotal = 0;
+var var10Attempts = 0;
+var missRateString = '';
 
-  function Game1(props) {
-    _classCallCheck(this, Game1);
+var attempts10 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var attemptsAll = [];
 
-    var _this = _possibleConstructorReturn(this, (Game1.__proto__ || Object.getPrototypeOf(Game1)).call(this, props));
+var ReactionTimePresenter = function (_React$Component) {
+   _inherits(ReactionTimePresenter, _React$Component);
 
-    _this.state = {
+   function ReactionTimePresenter(props) {
+      _classCallCheck(this, ReactionTimePresenter);
 
-      gameHeaderText: '',
+      var _this = _possibleConstructorReturn(this, (ReactionTimePresenter.__proto__ || Object.getPrototypeOf(ReactionTimePresenter)).call(this, props));
 
-      sequenceCount: 3,
-      clickCount: 0,
-      clickedCorrectly: true,
-      numberCorrect: 0,
-      sequence: [],
-
-      // phase 0: game has not started yet
-      // phase 1: encoding phase
-      // phase 2: retrieval phase
-      // phase 3: post-task phase
-      phase: 0,
-
-      clickingOnGridItem: false,
-
-      gridItemsStyles: [{ backgroundColor: gridColors[1], transition: '0.2s' }, { backgroundColor: gridColors[1], transition: '0.2s' }, { backgroundColor: gridColors[1], transition: '0.2s' }, { backgroundColor: gridColors[1], transition: '0.2s' }, { backgroundColor: gridColors[0], transition: '0.2s' }, { backgroundColor: gridColors[1], transition: '0.2s' }, { backgroundColor: gridColors[1], transition: '0.2s' }, { backgroundColor: gridColors[1], transition: '0.2s' }, { backgroundColor: gridColors[1], transition: '0.2s' }],
-      goTextStyle: { opacity: '100', transition: '0.2s' },
-      gridItemWidthSmall: '',
-      gridItemWidthBig: '',
-      gridItemMarginSmall: '',
-      gridItemMarginBig: '',
-      goTextMarginSmall: 0,
-      goTextMarginBig: 0,
-      screenScale: 0.0
-    };
-
-    _this.setStyleVariables = _this.setStyleVariables.bind(_this);
-    _this.setJsxStyles = _this.setJsxStyles.bind(_this);
-    _this.startGame = _this.startGame.bind(_this);
-    _this.encodingPhase = _this.encodingPhase.bind(_this);
-    _this.mouseOverGridItem = _this.mouseOverGridItem.bind(_this);
-    _this.mouseLeavesGridItem = _this.mouseLeavesGridItem.bind(_this);
-    _this.clickGridItem = _this.clickGridItem.bind(_this);
-    _this.mouseDownOverGridItem = _this.mouseDownOverGridItem.bind(_this);
-    return _this;
-  }
-
-  _createClass(Game1, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.setState({ gameHeaderText: gameHeaderText[0] });
-
-      this.setStyleVariables();
-      window.addEventListener('resize', this.setStyleVariables);
-
-      gridItemsElements = document.getElementsByClassName('gridItem');
-      centerItemElement = document.getElementById('4');
-
-      centerItemElement.style.cursor = 'pointer';
-      for (var i = 0; i < gridItemsElements.length; i++) {
-        gridItemsElements[i].style.cursor = 'default';
-      }
-    }
-  }, {
-    key: 'componentWillUnmount',
-    value: function componentWillUnmount() {
-      window.removeEventListener('resize', this.setStyleVariables);
-    }
-  }, {
-    key: 'setStyleVariables',
-    value: function setStyleVariables() {
-      var _this2 = this;
-
-      if (window.innerWidth <= 1250 && this.state.screenScale !== 1.0) {
-        this.setState({
-          screenScale: 1.0,
-          gridItemWidthSmall: '70px',
-          gridItemWidthBig: '76px',
-          gridItemMarginSmall: '15px',
-          gridItemMarginBig: '12px',
-          goTextMarginSmall: '17px',
-          goTextMarginBig: '20px'
-
-        }, function () {
-          _this2.setJsxStyles();
-        });
-      } else if (window.innerWidth > 1250 && this.state.screenScale !== 1.25) {
-        this.setState({
-          screenScale: 1.25,
-          gridItemWidthSmall: '89px',
-          gridItemWidthBig: '99px',
-          gridItemMarginSmall: '18px',
-          gridItemMarginBig: '13px',
-          goTextMarginSmall: '21px',
-          goTextMarginBig: '26px'
-        }, function () {
-          _this2.setJsxStyles();
-        });
-      }
-    }
-  }, {
-    key: 'setJsxStyles',
-    value: function setJsxStyles() {
-      var newGridItemsStyles = [].concat(_toConsumableArray(this.state.gridItemsStyles));
-      var newGoTextStyle = Object.assign({}, this.state.goTextStyle, {
-        marginTop: this.state.goTextMarginSmall
-      });
-      for (var i = 0; i < 9; i++) {
-        newGridItemsStyles[i] = Object.assign({}, newGridItemsStyles[i], {
-          width: this.state.gridItemWidthSmall,
-          height: this.state.gridItemWidthSmall,
-          marginTop: this.state.gridItemMarginSmall,
-          marginBottom: this.state.gridItemMarginSmall
-        });
-      }
-      this.setState({
-        gridItemsStyles: newGridItemsStyles,
-        goTextStyle: newGoTextStyle
-      });
-    }
-  }, {
-    key: 'startGame',
-    value: function startGame() {
-      var _this3 = this;
-
-      if (this.state.phase === 0) {
-
-        var newGoTextStyle = Object.assign({}, this.state.goTextStyle, {
-          opacity: '0'
-        });
-        var newGridItemsStyles = [].concat(_toConsumableArray(this.state.gridItemsStyles));
-        newGridItemsStyles[4] = Object.assign({}, newGridItemsStyles[4], {
-
-          backgroundColor: gridColors[1],
-
-          width: this.state.gridItemWidthSmall,
-          height: this.state.gridItemWidthSmall,
-          marginTop: this.state.gridItemMarginSmall,
-          marginBottom: this.state.gridItemMarginSmall
-        });
-        this.setState({
-          go: 1,
-          phase: 1,
-          goTextStyle: newGoTextStyle,
-          gridItemsStyles: newGridItemsStyles
-        }, function () {
-          centerItemElement.style.cursor = 'default';
-          setTimeout(function () {
-            _this3.encodingPhase();
-            _this3.setState({ gameHeaderText: gameHeaderText[1] });
-          }, 200);
-        });
-      }
-    }
-  }, {
-    key: 'encodingPhase',
-    value: function encodingPhase() {
-      var _this4 = this;
-
-      var sequence = [];
-      sequence.push(Math.floor(Math.random() * 9));
-      for (var _i = 1; _i < this.state.sequenceCount; _i++) {
-        var newInt = 0;
-        do {
-          newInt = Math.floor(Math.random() * 9);
-        } while (newInt === sequence[_i - 1]);
-        sequence.push(newInt);
-      }
-      this.setState({ sequence: sequence });
-
-      var inBetweenDelay = 600;
-      var timeOnScreen = 600;
-      var pauseBeforeRecall = 800;
-
-      var i = 0;
-      var iMax = this.state.sequenceCount;
-      var sequenceLoop = function sequenceLoop(i) {
-
-        setTimeout(function () {
-
-          var newGridItemsStyles = [].concat(_toConsumableArray(_this4.state.gridItemsStyles));
-          newGridItemsStyles[sequence[i]] = Object.assign({}, newGridItemsStyles[sequence[i]], {
-
-            backgroundColor: gridColors[0],
-
-            width: _this4.state.gridItemWidthBig,
-            height: _this4.state.gridItemWidthBig,
-            marginTop: _this4.state.gridItemMarginBig,
-            marginBottom: _this4.state.gridItemMarginBig
-          });
-          _this4.setState({
-            gridItemsStyles: newGridItemsStyles
-          }, function () {
-
-            setTimeout(function () {
-
-              newGridItemsStyles = [].concat(_toConsumableArray(_this4.state.gridItemsStyles));
-              newGridItemsStyles[sequence[i]] = Object.assign({}, newGridItemsStyles[sequence[i]], {
-
-                backgroundColor: gridColors[1],
-
-                width: _this4.state.gridItemWidthSmall,
-                height: _this4.state.gridItemWidthSmall,
-                marginTop: _this4.state.gridItemMarginSmall,
-                marginBottom: _this4.state.gridItemMarginSmall
-              });
-              _this4.setState({
-                gridItemsStyles: newGridItemsStyles
-              }, function () {
-                i++;
-                if (i < iMax) {
-
-                  sequenceLoop(i);
-                } else {
-                  setTimeout(function () {
-
-                    _this4.setState({
-                      phase: 2,
-                      clickedCorrectly: true,
-                      numberCorrect: 0,
-                      clickCount: 0,
-                      gameHeaderText: gameHeaderText[2]
-                    }, function () {
-                      centerItemElement.style.cursor = 'pointer';
-                      for (var _i2 = 0; _i2 < gridItemsElements.length; _i2++) {
-                        gridItemsElements[_i2].style.cursor = 'pointer';
-                      }
-                    });
-                  }, pauseBeforeRecall);
-                }
-              });
-            }, timeOnScreen);
-          });
-        }, inBetweenDelay);
-      };
-      sequenceLoop(i);
-    }
-  }, {
-    key: 'mouseOverGridItem',
-    value: function mouseOverGridItem(event) {
-      var _this5 = this;
-
-      var index = parseInt(event.currentTarget.id);
-
-      var makeNewGridStyles = function makeNewGridStyles() {
-        var newGridItemsStyles = [].concat(_toConsumableArray(_this5.state.gridItemsStyles));
-        newGridItemsStyles[index] = Object.assign({}, newGridItemsStyles[index], {
-
-          width: _this5.state.gridItemWidthBig,
-          height: _this5.state.gridItemWidthBig,
-          marginTop: _this5.state.gridItemMarginBig,
-          marginBottom: _this5.state.gridItemMarginBig
-        });
-        _this5.setState({ gridItemsStyles: newGridItemsStyles });
-      };
-      var makeNewGoTextStyle = function makeNewGoTextStyle() {
-        var newGoTextStyle = Object.assign({}, _this5.state.goTextStyle, {
-          marginTop: _this5.state.goTextMarginBig
-        });
-        _this5.setState({ goTextStyle: newGoTextStyle });
+      _this.state = {
+         mouseOverTarget: false
       };
 
-      if (this.state.phase === 2) {
-        makeNewGridStyles();
-      } else if (this.state.phase === 0 && index === 4) {
-        makeNewGridStyles();
-        makeNewGoTextStyle();
+      _this.handleMouseDown = _this.handleMouseDown.bind(_this);
+      _this.handleMouseMove = _this.handleMouseMove.bind(_this);
+      return _this;
+   }
+
+   _createClass(ReactionTimePresenter, [{
+      key: 'calcNewAvgTotal',
+      value: function calcNewAvgTotal(newValue) {
+         return (avgTotal * (n - 1) + newValue) / n;
       }
-    }
-  }, {
-    key: 'mouseLeavesGridItem',
-    value: function mouseLeavesGridItem(event) {
-      var _this6 = this;
-
-      var index = parseInt(event.currentTarget.id);
-
-      var makeNewGridStyles = function makeNewGridStyles() {
-        var newGridItemsStyles = [].concat(_toConsumableArray(_this6.state.gridItemsStyles));
-        newGridItemsStyles[index] = Object.assign({}, newGridItemsStyles[index], {
-
-          width: _this6.state.gridItemWidthSmall,
-          height: _this6.state.gridItemWidthSmall,
-          marginTop: _this6.state.gridItemMarginSmall,
-          marginBottom: _this6.state.gridItemMarginSmall
-        });
-        _this6.setState({ gridItemsStyles: newGridItemsStyles });
-
-        if (_this6.state.clickingOnGridItem) {
-          newGridItemsStyles[index] = Object.assign({}, newGridItemsStyles[index], {
-            backgroundColor: gridColors[1]
-          });
-          _this6.setState({
-            gridItemsStyles: newGridItemsStyles,
-            clickingOnGridItem: false
-          });
-        }
-      };
-
-      var makeNewGoTextStyle = function makeNewGoTextStyle() {
-        var newGoTextStyle = Object.assign({}, _this6.state.goTextStyle, {
-          marginTop: _this6.state.goTextMarginSmall
-        });
-        _this6.setState({ goTextStyle: newGoTextStyle });
-      };
-
-      if (this.state.phase === 2) {
-        makeNewGridStyles();
-      } else if (this.state.phase === 0 && index === 4) {
-        makeNewGridStyles();
-        makeNewGoTextStyle();
+   }, {
+      key: 'calcNewVarTotal',
+      value: function calcNewVarTotal() {
+         var epsilon = 0;
+         for (var i = 0; i < n; i++) {
+            epsilon += Math.pow(attemptsAll[i] - avgTotal, 2);
+         }
+         return epsilon / (n - 1);
       }
-    }
-  }, {
-    key: 'clickGridItem',
-    value: function clickGridItem(event) {
-      var _this7 = this;
+   }, {
+      key: 'calcNewAvg10Attempts',
+      value: function calcNewAvg10Attempts(newValue) {
+         var total = avg10Attempts * 10;
+         total -= attempts10[9];
+         total += newValue;
+         return total / 10;
+      }
+   }, {
+      key: 'calcNewVar10Attempts',
+      value: function calcNewVar10Attempts() {
+         var epsilon = 0;
+         for (var i = 0; i < 10; i++) {
+            epsilon += Math.pow(attempts10[i] - avg10Attempts, 2);
+         }return epsilon / 9;
+      }
+   }, {
+      key: 'handleMouseDown',
+      value: function handleMouseDown() {
 
-      var index = parseInt(event.currentTarget.id);
+         if (this.state.mouseOverTarget) {
 
-      switch (this.state.phase) {
-        case 0:
-          if (index === 4) this.startGame();
-          break;
-        case 1:
-          break;
-        case 2:
+            if (this.props.phase === 2) {
+               totalAttempts++;
+               n++;
+               var diff = Date.now() - this.props.startTime;
+               attemptsAll.push(diff);
+               reactionTimeString = diff.toString();
+               var passOrFail = diff <= this.props.currentScore ? true : false;
+               this.props.updateData(passOrFail);
 
-          var endRecallPhase = function endRecallPhase() {
-            if (_this7.state.clickedCorrectly) {
-              _this7.setState({
-                gameHeaderText: gameHeaderText[3],
-                sequenceCount: _this7.state.sequenceCount + 1
-              });
-            } else {
+               if (n <= 10) {
+                  attempts10[n - 1] = diff;
 
-              var newSequenceCount = _this7.state.sequenceCount - _this7.state.numberCorrect === 1 ? _this7.state.sequenceCount : _this7.state.sequenceCount - 1;
-              var numberMissedString = '(' + _this7.state.numberCorrect + '/' + _this7.state.sequenceCount + ')';
-              _this7.setState({
-                gameHeaderText: gameHeaderText[4] + numberMissedString + gameHeaderText[5],
-                sequenceCount: newSequenceCount
-              });
+                  if (n === 10) {
+                     var total = 0;
+                     for (var i = 0; i < 10; i++) {
+                        total += attempts10[i];
+                     }avg10Attempts = total / 10;
+
+                     var10Attempts = this.calcNewVar10Attempts();
+                  }
+               } else {
+                  avg10Attempts = this.calcNewAvg10Attempts(diff);
+
+                  var newAttempts10 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                  newAttempts10[0] = diff;
+                  for (var _i = 1; _i < 10; _i++) {
+                     newAttempts10[_i] = attempts10[_i - 1];
+                  }
+                  attempts10 = newAttempts10;
+
+                  var10Attempts = this.calcNewVar10Attempts();
+               }
+
+               avgTotal = this.calcNewAvgTotal(diff);
+               if (n <= 2) {
+                  if (n === 2) {
+                     var a = Math.pow(attempts10[0] - avgTotal, 2);
+                     var b = Math.pow(attempts10[1] - avgTotal, 2);
+                     varTotal = a + b;
+                  }
+               } else {
+                  varTotal = this.calcNewVarTotal(diff);
+               }
+
+               if (missRateString) {
+                  var missRateTemp = 100 * misses / totalAttempts;
+                  missRateString = Math.round(missRateTemp).toString() + '%';
+               }
+            } else if (this.props.phase === 1) {
+               totalAttempts++;
+               misses++;
+               var _missRateTemp = 100 * misses / totalAttempts;
+               if (_missRateTemp !== 0) {
+                  missRateString = Math.round(_missRateTemp).toString() + '%';
+               }
+               reactionTimeString = 'MISS!';
+               this.props.cancelClickPhase();
+               this.props.updateData();
+            } else if (this.props.phase === 3) {
+               this.props.reloadingPhase();
             }
-
-            var newGoTextStyle = Object.assign({}, _this7.state.goTextStyle, {
-              opacity: '100',
-              marginTop: _this7.state.goTextMarginSmall
-            });
-            var newGridItemsStyles = [].concat(_toConsumableArray(_this7.state.gridItemsStyles));
-            for (var i = 0; i < 9; i++) {
-              newGridItemsStyles[i] = Object.assign({}, newGridItemsStyles[i], {
-
-                backgroundColor: gridColors[1],
-
-                width: _this7.state.gridItemWidthSmall,
-                height: _this7.state.gridItemWidthSmall,
-                marginTop: _this7.state.gridItemMarginSmall,
-                marginBottom: _this7.state.gridItemMarginSmall
-              });
-            }
-            newGridItemsStyles[4] = Object.assign({}, newGridItemsStyles[4], {
-              backgroundColor: gridColors[0]
-            });
-
-            setTimeout(function () {
-              _this7.setState({
-                phase: 0,
-                goTextStyle: newGoTextStyle,
-                gridItemsStyles: newGridItemsStyles,
-                clickingOnGridItem: false
-              });
-              centerItemElement.style.cursor = 'pointer';
-              for (var _i3 = 0; _i3 < gridItemsElements.length; _i3++) {
-                gridItemsElements[_i3].style.cursor = 'default';
-              }
-            }, 250);
-          };
-
-          var targetGridItem = this.state.sequence[this.state.clickCount];
-          if (targetGridItem === index) {
-            this.setState({
-              numberCorrect: this.state.numberCorrect + 1,
-              clickCount: this.state.clickCount + 1
-            }, function () {
-              if (_this7.state.clickCount === _this7.state.sequenceCount) endRecallPhase();
-            });
-          } else {
-            this.setState({
-              clickedCorrectly: false,
-              clickCount: this.state.clickCount + 1
-            }, function () {
-              if (_this7.state.clickCount === _this7.state.sequenceCount) endRecallPhase();
-            });
-          }
-
-          var newGridItemsStyles = [].concat(_toConsumableArray(this.state.gridItemsStyles));
-          newGridItemsStyles[index] = Object.assign({}, newGridItemsStyles[index], {
-            backgroundColor: gridColors[1]
-          });
-          setTimeout(function () {
-            _this7.setState({ gridItemsStyles: newGridItemsStyles });
-          }, 100);
-
-          break;
+         }
       }
-    }
-  }, {
-    key: 'mouseDownOverGridItem',
-    value: function mouseDownOverGridItem(event) {
-      if (this.state.phase === 2) {
+   }, {
+      key: 'handleMouseMove',
+      value: function handleMouseMove(event) {
+         var targetElement = document.getElementById('target');
+         var targetRect = targetElement.getBoundingClientRect();
+         var radius = (targetRect.right - targetRect.left) / 2;
+         var centerX = targetRect.left + radius;
+         var centerY = targetRect.top + radius;
 
-        var newGridItemsStyles = [].concat(_toConsumableArray(this.state.gridItemsStyles));
-        var index = parseInt(event.currentTarget.id);
-        newGridItemsStyles[index] = Object.assign({}, newGridItemsStyles[index], {
-          backgroundColor: gridColors[0]
-        });
-        this.setState({
-          gridItemsStyles: newGridItemsStyles,
-          clickingOnGridItem: true
-        });
+         var clickDistX = centerX - event.clientX;
+         var clickDistY = centerY - event.clientY;
+         var clickDistTotal = Math.sqrt(Math.pow(clickDistX, 2) + Math.pow(clickDistY, 2));
+
+         if (clickDistTotal <= radius && !this.state.mouseOverTarget) {
+            targetElement.style.cursor = "pointer";
+            this.setState({ mouseOverTarget: true });
+         } else if (clickDistTotal >= radius && this.state.mouseOverTarget) {
+            targetElement.style.cursor = "default";
+            this.setState({ mouseOverTarget: false });
+         }
       }
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-
-      return React.createElement(
-        React.Fragment,
-        null,
-        React.createElement(
-          'h4',
-          null,
-          this.state.gameHeaderText
-        ),
-        React.createElement(
-          'div',
-          { id: 'gridHolder' },
-          React.createElement('div', { style: this.state.gridItemsStyles[0],
-            id: '0',
-            className: 'gridItem',
-            onMouseMove: this.mouseOverGridItem,
-            onMouseLeave: this.mouseLeavesGridItem,
-            onClick: this.clickGridItem,
-            onMouseDown: this.mouseDownOverGridItem }),
-          React.createElement('div', { style: this.state.gridItemsStyles[1],
-            id: '1',
-            className: 'gridItem',
-            onMouseMove: this.mouseOverGridItem,
-            onMouseLeave: this.mouseLeavesGridItem,
-            onClick: this.clickGridItem,
-            onMouseDown: this.mouseDownOverGridItem }),
-          React.createElement('div', { style: this.state.gridItemsStyles[2],
-            id: '2',
-            className: 'gridItem',
-            onMouseMove: this.mouseOverGridItem,
-            onMouseLeave: this.mouseLeavesGridItem,
-            onClick: this.clickGridItem,
-            onMouseDown: this.mouseDownOverGridItem }),
-          React.createElement('div', { style: this.state.gridItemsStyles[3],
-            id: '3',
-            className: 'gridItem',
-            onMouseMove: this.mouseOverGridItem,
-            onMouseLeave: this.mouseLeavesGridItem,
-            onClick: this.clickGridItem,
-            onMouseDown: this.mouseDownOverGridItem }),
-          React.createElement(
+   }, {
+      key: 'render',
+      value: function render() {
+         return React.createElement(
             'div',
-            { id: '4',
-              style: Object.assign({}, this.state.gridItemsStyles[4]),
-              onMouseMove: this.mouseOverGridItem,
-              onMouseLeave: this.mouseLeavesGridItem,
-              onClick: this.clickGridItem,
-              onMouseDown: this.mouseDownOverGridItem },
+            null,
             React.createElement(
-              'p',
-              { id: 'goText', style: this.state.goTextStyle },
-              'GO'
+               'div',
+               { id: 'gameHolder' },
+               React.createElement(
+                  'div',
+                  { id: 'leftDataHolder' },
+                  React.createElement(
+                     'p',
+                     { className: 'gameMarginLeft' },
+                     'Total attempts: ',
+                     React.createElement(
+                        'b',
+                        null,
+                        totalAttempts ? totalAttempts : React.createElement(
+                           'span',
+                           null,
+                           '\u2013'
+                        )
+                     )
+                  ),
+                  React.createElement(
+                     'p',
+                     { className: 'gameMarginLeft' },
+                     'Avg. (total): ',
+                     React.createElement(
+                        'b',
+                        null,
+                        avgTotal ? Math.round(avgTotal) : React.createElement(
+                           'span',
+                           null,
+                           '\u2013'
+                        )
+                     )
+                  ),
+                  React.createElement(
+                     'p',
+                     { className: 'gameMarginLeft' },
+                     'Avg. (10 attempts): ',
+                     React.createElement(
+                        'b',
+                        null,
+                        avg10Attempts ? Math.round(avg10Attempts) : React.createElement(
+                           'span',
+                           null,
+                           '\u2013'
+                        )
+                     )
+                  ),
+                  React.createElement(
+                     'p',
+                     { className: 'gameMarginLeft' },
+                     'Std. Dev. (total): ',
+                     React.createElement(
+                        'b',
+                        null,
+                        varTotal ? Math.round(Math.sqrt(varTotal)) : React.createElement(
+                           'span',
+                           null,
+                           '\u2013'
+                        )
+                     )
+                  ),
+                  React.createElement(
+                     'p',
+                     { className: 'gameMarginLeft' },
+                     'Std. Dev. (10 attempts): ',
+                     React.createElement(
+                        'b',
+                        null,
+                        var10Attempts ? Math.round(Math.sqrt(var10Attempts)) : React.createElement(
+                           'span',
+                           null,
+                           '\u2013'
+                        )
+                     )
+                  ),
+                  React.createElement(
+                     'p',
+                     { className: 'gameMarginLeft' },
+                     'Miss Rate: ',
+                     React.createElement(
+                        'b',
+                        null,
+                        missRateString ? missRateString : React.createElement(
+                           'span',
+                           null,
+                           '\u2013'
+                        )
+                     )
+                  )
+               ),
+               React.createElement(
+                  'div',
+                  { id: 'actualGame' },
+                  React.createElement('img', { src: targetImages[this.props.phase],
+                     id: 'target',
+                     alt: 'Reaction Time Target',
+                     onMouseDown: this.handleMouseDown,
+                     onMouseMove: this.handleMouseMove
+                  }),
+                  React.createElement(
+                     'span',
+                     { id: 'displayedTime' },
+                     reactionTimeString
+                  ),
+                  React.createElement(
+                     'span',
+                     { className: 'currentGoalText' },
+                     'CURRENT GOAL:',
+                     React.createElement('br', null),
+                     this.props.currentScore,
+                     'ms'
+                  ),
+                  React.createElement(
+                     'span',
+                     { className: 'currentGoalText',
+                        style: {
+                           position: 'absolute',
+                           opacity: this.props.scoreOpacity,
+                           transition: this.props.scoreTransition
+                        } },
+                     React.createElement(
+                        'b',
+                        null,
+                        'CURRENT GOAL:',
+                        React.createElement('br', null),
+                        this.props.currentScore,
+                        'ms'
+                     )
+                  ),
+                  React.createElement(
+                     'span',
+                     { className: 'lowestGoalText' },
+                     'LOWEST GOAL:',
+                     React.createElement('br', null),
+                     this.props.highScore,
+                     'ms'
+                  ),
+                  React.createElement(
+                     'span',
+                     { className: 'lowestGoalText',
+                        style: {
+                           position: 'absolute',
+                           opacity: this.props.highScoreOpacity,
+                           transition: this.props.highScoreTransition
+                        } },
+                     React.createElement(
+                        'b',
+                        null,
+                        'LOWEST GOAL:',
+                        React.createElement('br', null),
+                        this.props.highScore,
+                        'ms'
+                     )
+                  ),
+                  React.createElement(
+                     'div',
+                     { className: 'starHolder' },
+                     React.createElement('img', { src: starEmpty,
+                        className: 'star',
+                        alt: 'Reaction Time Star'
+                     }),
+                     React.createElement('img', { src: starEmpty,
+                        className: 'star',
+                        alt: 'Reaction Time Star'
+                     }),
+                     React.createElement('img', { src: starEmpty,
+                        className: 'star',
+                        alt: 'Reaction Time Star'
+                     })
+                  ),
+                  React.createElement(
+                     'div',
+                     { className: 'starHolder',
+                        style: { position: 'absolute' } },
+                     React.createElement('img', { src: starFilled,
+                        className: 'star',
+                        alt: 'Reaction Time Star',
+                        style: {
+                           opacity: this.props.star0,
+                           transition: this.props.starTransition
+                        }
+                     }),
+                     React.createElement('img', { src: starFilled,
+                        className: 'star',
+                        alt: 'Reaction Time Star',
+                        style: {
+                           opacity: this.props.star1,
+                           transition: this.props.starTransition
+                        }
+                     }),
+                     React.createElement('img', { src: starFilled,
+                        className: 'star',
+                        alt: 'Reaction Time Star',
+                        style: {
+                           opacity: this.props.star2,
+                           transition: this.props.starTransition
+                        }
+                     })
+                  )
+               ),
+               React.createElement(
+                  'div',
+                  { id: 'previousAttemptsHolder' },
+                  React.createElement(
+                     'p',
+                     { className: 'gameMarginRight' },
+                     React.createElement(
+                        'b',
+                        null,
+                        '1 \u2013 ',
+                        attempts10[0] ? attempts10[0] : ''
+                     )
+                  ),
+                  React.createElement(
+                     'p',
+                     { className: 'gameMarginRight' },
+                     React.createElement(
+                        'b',
+                        null,
+                        '2 \u2013 ',
+                        attempts10[1] ? attempts10[1] : ''
+                     )
+                  ),
+                  React.createElement(
+                     'p',
+                     { className: 'gameMarginRight' },
+                     React.createElement(
+                        'b',
+                        null,
+                        '3 \u2013 ',
+                        attempts10[2] ? attempts10[2] : ''
+                     )
+                  ),
+                  React.createElement(
+                     'p',
+                     { className: 'gameMarginRight' },
+                     React.createElement(
+                        'b',
+                        null,
+                        '4 \u2013 ',
+                        attempts10[3] ? attempts10[3] : ''
+                     )
+                  ),
+                  React.createElement(
+                     'p',
+                     { className: 'gameMarginRight' },
+                     React.createElement(
+                        'b',
+                        null,
+                        '5 \u2013 ',
+                        attempts10[4] ? attempts10[4] : ''
+                     )
+                  ),
+                  React.createElement(
+                     'p',
+                     { className: 'gameMarginRight' },
+                     React.createElement(
+                        'b',
+                        null,
+                        '6 \u2013 ',
+                        attempts10[5] ? attempts10[5] : ''
+                     )
+                  ),
+                  React.createElement(
+                     'p',
+                     { className: 'gameMarginRight' },
+                     React.createElement(
+                        'b',
+                        null,
+                        '7 \u2013 ',
+                        attempts10[6] ? attempts10[6] : ''
+                     )
+                  ),
+                  React.createElement(
+                     'p',
+                     { className: 'gameMarginRight' },
+                     React.createElement(
+                        'b',
+                        null,
+                        '8 \u2013 ',
+                        attempts10[7] ? attempts10[7] : ''
+                     )
+                  ),
+                  React.createElement(
+                     'p',
+                     { className: 'gameMarginRight' },
+                     React.createElement(
+                        'b',
+                        null,
+                        '9 \u2013 ',
+                        attempts10[8] ? attempts10[8] : ''
+                     )
+                  ),
+                  React.createElement(
+                     'p',
+                     { className: 'gameMarginRight' },
+                     React.createElement(
+                        'b',
+                        null,
+                        '10 \u2013 ',
+                        attempts10[9] ? attempts10[9] : ''
+                     )
+                  )
+               )
+            ),
+            React.createElement(
+               'a',
+               { href: '' },
+               React.createElement('img', { src: logo,
+                  id: 'logoLink',
+                  alt: 'Executive Functioning Trainer Logo' })
+            ),
+            React.createElement(
+               'div',
+               { id: 'lowerTextHolder' },
+               React.createElement(
+                  'p',
+                  { id: 'howToPlayHeader' },
+                  'HOW TO PLAY: '
+               ),
+               React.createElement(
+                  'ul',
+                  { id: 'howToPlayListHolder' },
+                  React.createElement(
+                     'li',
+                     { className: 'listSetting' },
+                     'Click on the button once it turns green.'
+                  ),
+                  React.createElement(
+                     'li',
+                     { className: 'listSetting' },
+                     'Get a reaction time better than your "current goal" to earn a star.  Gain three stars to lower your "current goal" by 10ms.  Your "lowest goal" is the lowest "current goal" you\'ve had so far while playing the game.'
+                  ),
+                  React.createElement(
+                     'li',
+                     { className: 'listSetting' },
+                     'If you react slower than your "current goal", you lose ALL of your stars. Also, your "current goal" is raised by 10ms. Hitting the button too early will have the same effect.'
+                  ),
+                  React.createElement(
+                     'li',
+                     { className: 'listSetting' },
+                     'Press the "Escape" key to pause the game or take a break (pausing will also restart any attempt, so you don\'t have to worry about pausing when the button is red or green).'
+                  )
+               ),
+               React.createElement(
+                  'p',
+                  { className: 'otherHeader' },
+                  'ABOUT THIS GAME: '
+               ),
+               React.createElement(
+                  'ul',
+                  { className: 'otherListHolder' },
+                  React.createElement(
+                     'li',
+                     { className: 'listSetting' },
+                     'You might notice that your reaction times in this test are somewhat slower than in other reaction time tests.  This is for two reasons. First, this reaction time test uses a wider, less predictable time-window than usual (between 1-6 seconds).  Second, it gives you very little rest in-between attempts. Thus, it requires you to sustain attention over long periods of time with few breaks, thereby practicing your sustained attention capabilities alongside reaction speed.'
+                  ),
+                  React.createElement(
+                     'li',
+                     { className: 'listSetting' },
+                     'It should be warned that reaction times can only be improved to a limited degree.  Furthermore, for many people, the best way to improve reaction times is NOT by training, but instead by fixing an unhealthy lifestyle via exercise, nutrition, and sleep.'
+                  ),
+                  React.createElement(
+                     'li',
+                     { className: 'listSetting' },
+                     'This reaction time test has been "gamified" to make it more fun to play, and earning and losing "stars" is an example of ',
+                     React.createElement(
+                        'a',
+                        { target: '_blank', rel: 'noreferrer', href: 'https://en.wikipedia.org/wiki/Operant_conditioning' },
+                        'operant conditioning'
+                     ),
+                     '. However, operant conditioning will not improve your reaction times any better than regular practice would. Instead, it ONLY increases motivation to play the game.'
+                  ),
+                  React.createElement(
+                     'li',
+                     { className: 'listSetting' },
+                     'The accuracy of this Reaction Time Trainer is limited by your monitor\'s refresh rate.  For example, a monitor with a refresh rate of 60hz and an input lag of 6ms would record reaction times with a latency randomly varying from 6-22.667ms (via a uniform distribution).'
+                  )
+               ),
+               React.createElement(
+                  'p',
+                  { className: 'otherHeader' },
+                  'ABOUT OUR SERVICES: '
+               ),
+               React.createElement(
+                  'ul',
+                  { className: 'otherListHolder' },
+                  React.createElement(
+                     'li',
+                     { className: 'listSetting' },
+                     'This website is in construction.  Stop by later when it is finished to learn more about how you can train your executive functioning through our services!'
+                  )
+               )
             )
-          ),
-          React.createElement('div', { style: this.state.gridItemsStyles[5],
-            id: '5',
-            className: 'gridItem',
-            onMouseMove: this.mouseOverGridItem,
-            onMouseLeave: this.mouseLeavesGridItem,
-            onClick: this.clickGridItem,
-            onMouseDown: this.mouseDownOverGridItem }),
-          React.createElement('div', { style: this.state.gridItemsStyles[6],
-            id: '6',
-            className: 'gridItem',
-            onMouseMove: this.mouseOverGridItem,
-            onMouseLeave: this.mouseLeavesGridItem,
-            onClick: this.clickGridItem,
-            onMouseDown: this.mouseDownOverGridItem }),
-          React.createElement('div', { style: this.state.gridItemsStyles[7],
-            id: '7',
-            className: 'gridItem',
-            onMouseMove: this.mouseOverGridItem,
-            onMouseLeave: this.mouseLeavesGridItem,
-            onClick: this.clickGridItem,
-            onMouseDown: this.mouseDownOverGridItem }),
-          React.createElement('div', { style: this.state.gridItemsStyles[8],
-            id: '8',
-            className: 'gridItem',
-            onMouseMove: this.mouseOverGridItem,
-            onMouseLeave: this.mouseLeavesGridItem,
-            onClick: this.clickGridItem,
-            onMouseDown: this.mouseDownOverGridItem })
-        ),
-        React.createElement(
-          'h5',
-          null,
-          'SEQUENCE LENGTH: ',
-          this.state.sequenceCount
-        )
-      );
-    }
-  }]);
+         );
+      }
+   }]);
 
-  return Game1;
+   return ReactionTimePresenter;
 }(React.Component);
 
-var Game2 = function (_React$Component2) {
-  _inherits(Game2, _React$Component2);
-
-  function Game2() {
-    _classCallCheck(this, Game2);
-
-    return _possibleConstructorReturn(this, (Game2.__proto__ || Object.getPrototypeOf(Game2)).apply(this, arguments));
-  }
-
-  _createClass(Game2, [{
-    key: 'render',
-    value: function render() {
-      return React.createElement(
-        'h1',
-        null,
-        'IN CONSTRUCTION'
-      );
-    }
-  }]);
-
-  return Game2;
-}(React.Component);
-
-var Game3 = function (_React$Component3) {
-  _inherits(Game3, _React$Component3);
-
-  function Game3() {
-    _classCallCheck(this, Game3);
-
-    return _possibleConstructorReturn(this, (Game3.__proto__ || Object.getPrototypeOf(Game3)).apply(this, arguments));
-  }
-
-  _createClass(Game3, [{
-    key: 'render',
-    value: function render() {
-      return React.createElement(
-        'h1',
-        null,
-        'IN CONSTRUCTION'
-      );
-    }
-  }]);
-
-  return Game3;
-}(React.Component);
-
-var Game4 = function (_React$Component4) {
-  _inherits(Game4, _React$Component4);
-
-  function Game4() {
-    _classCallCheck(this, Game4);
-
-    return _possibleConstructorReturn(this, (Game4.__proto__ || Object.getPrototypeOf(Game4)).apply(this, arguments));
-  }
-
-  _createClass(Game4, [{
-    key: 'render',
-    value: function render() {
-      return React.createElement(
-        'h1',
-        null,
-        'IN CONSTRUCTION'
-      );
-    }
-  }]);
-
-  return Game4;
-}(React.Component);
-
-var Game5 = function (_React$Component5) {
-  _inherits(Game5, _React$Component5);
-
-  function Game5() {
-    _classCallCheck(this, Game5);
-
-    return _possibleConstructorReturn(this, (Game5.__proto__ || Object.getPrototypeOf(Game5)).apply(this, arguments));
-  }
-
-  _createClass(Game5, [{
-    key: 'render',
-    value: function render() {
-      return React.createElement(
-        'h1',
-        null,
-        'IN CONSTRUCTION'
-      );
-    }
-  }]);
-
-  return Game5;
-}(React.Component);
-
-var Game6 = function (_React$Component6) {
-  _inherits(Game6, _React$Component6);
-
-  function Game6() {
-    _classCallCheck(this, Game6);
-
-    return _possibleConstructorReturn(this, (Game6.__proto__ || Object.getPrototypeOf(Game6)).apply(this, arguments));
-  }
-
-  _createClass(Game6, [{
-    key: 'render',
-    value: function render() {
-      return React.createElement(
-        'h1',
-        null,
-        'IN CONSTRUCTION'
-      );
-    }
-  }]);
-
-  return Game6;
-}(React.Component);
-
-var games = [React.createElement(Game1, null), React.createElement(Game2, null), React.createElement(Game3, null), React.createElement(Game4, null), React.createElement(Game5, null), React.createElement(Game6, null)];
-
-var WorkingMemoryInteractive = function (_React$Component7) {
-  _inherits(WorkingMemoryInteractive, _React$Component7);
-
-  function WorkingMemoryInteractive(props) {
-    _classCallCheck(this, WorkingMemoryInteractive);
-
-    var _this13 = _possibleConstructorReturn(this, (WorkingMemoryInteractive.__proto__ || Object.getPrototypeOf(WorkingMemoryInteractive)).call(this, props));
-
-    _this13.state = {
-      page: 1
-    };
-
-    _this13.clickNext = _this13.clickNext.bind(_this13);
-    _this13.clickPrev = _this13.clickPrev.bind(_this13);
-    return _this13;
-  }
-
-  _createClass(WorkingMemoryInteractive, [{
-    key: 'clickNext',
-    value: function clickNext() {
-      var newPage = this.state.page === 6 ? 6 : this.state.page + 1;
-      this.setState({
-        page: newPage
-      });
-    }
-  }, {
-    key: 'clickPrev',
-    value: function clickPrev() {
-      var newPage = this.state.page === 1 ? 1 : this.state.page - 1;
-      this.setState({
-        page: newPage
-      });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return React.createElement(
-        'div',
-        { id: 'appHolder' },
-        React.createElement(
-          'h1',
-          { className: 'header', id: 'headerTitle' },
-          'WORKING MEMORY'
-        ),
-        React.createElement(
-          'h3',
-          { className: 'header', id: 'headerSubTitle' },
-          'AN INTERACTIVE, HANDS-ON EXPLANATION'
-        ),
-        React.createElement(
-          'div',
-          { className: 'contentHolder', id: 'contentLeft' },
-          React.createElement(
-            'div',
-            { id: 'game' },
-            games[this.state.page - 1]
-          )
-        ),
-        React.createElement(
-          'div',
-          { className: 'contentHolder', id: 'contentRight' },
-          articles[this.state.page - 1]
-        ),
-        React.createElement(
-          'p',
-          { id: 'pageDisplay' },
-          'PAGE (',
-          this.state.page,
-          '/6)'
-        ),
-        React.createElement(
-          'div',
-          { id: 'buttonsHolder' },
-          React.createElement(
-            'button',
-            { id: 'buttonPrev', onClick: this.clickPrev },
-            'PREV'
-          ),
-          React.createElement(
-            'button',
-            { id: 'buttonNext', onClick: this.clickNext },
-            'NEXT'
-          )
-        )
-      );
-    }
-  }]);
-
-  return WorkingMemoryInteractive;
-}(React.Component);
-
-ReactDOM.render(React.createElement(WorkingMemoryInteractive, null), document.getElementById('reactRendersHere'));
+export default ReactionTimePresenter;
