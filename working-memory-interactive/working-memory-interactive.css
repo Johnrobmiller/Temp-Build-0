@@ -16,11 +16,11 @@
 }
 
 :root {
-  --tan-shade-1: #fff4e9;
-  --tan-shade-2: rgb(224, 212, 197);
-  --tan-shade-3: rgb(194, 180, 166);
-  --tan-shade-4: rgb(133, 121, 107);
-  --green: rgb(55, 128, 61);
+  --tan-shade-1: #fff7f0;
+  --tan-shade-2: rgb(224, 217, 208);
+  --tan-shade-3: rgb(197, 188, 178);
+  --tan-shade-4: rgb(141, 132, 122);
+  --green: rgb(61, 141, 68);
 }
 
 @media screen and (max-width: 1250px) {
