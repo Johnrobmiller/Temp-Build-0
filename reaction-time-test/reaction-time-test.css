@@ -1,0 +1,1002 @@
+@font-face {
+   font-family: 'Montserrat';
+   font-style: normal;
+   font-weight: 300;
+   font-display: swap;
+   src: url(https://fonts.gstatic.com/s/montserrat/v15/JTURjIg1_i6t8kCHKm45_cJD3gnD_g.woff2) format('woff2');
+   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+ 
+@font-face {
+   font-family: 'Syncopate';
+   font-style: normal;
+   font-weight: 400;
+   src: url(https://fonts.gstatic.com/s/syncopate/v12/pe0sMIuPIYBCpEV5eFdCBfe_.woff2) format('woff2');
+   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+
+  padding: 0;
+  margin: 0;
+  background-color: #d6cfc5;
+}
+   
+    /* 120% */
+@media screen and (min-width: 1801px) {
+
+    .headerRightElement {
+       font-size: 22px;
+       font-weight: bold;
+       color:rgb(0, 0, 0);
+       text-decoration: none;
+       text-align: center;
+     
+       display: inline-block;
+       padding-top: 8px;
+     }    
+    .headerRightElement:hover {
+       color:rgb(138, 0, 126);
+       font-size: 24px;
+       padding-top: 7px;
+     }
+    .headerBannerHolder {
+       height: 48px;
+       margin-top: 10px;
+    }
+    #home {
+       width: 119px;
+       margin-left: calc(50% - 340px);
+    }
+    #ourMission {
+       width: 200px;
+       position: absolute;
+       margin-left: 12px;
+    }
+    #logIn {
+       width: 125px;
+       position: absolute;
+       margin-left: 224px;
+    }
+    #getStarted {
+       width: 197px;
+       position: absolute;
+       margin-left: 361px;
+    }
+ 
+ 
+ 
+    .header {
+       text-align: center;
+       margin: 0;
+       padding-bottom: 18px;
+       
+       font-size: 48px;
+       font-weight: bold;
+       letter-spacing: 6px;
+    }
+    #gameHolder {
+       display: flex;
+    }
+ 
+ 
+ 
+    #leftDataHolder {
+       display: flex;
+       flex-direction: column;
+       justify-content: center;
+       
+       background-color: #DCD6CD;
+       width: 360px;
+       height: 600px;
+       position: relative;
+    }
+    .gameMarginLeft {
+       font-weight: 300;
+       font-size: 132%;
+       text-align: right;
+       margin-right: 53px;
+       margin-top: 27px;
+       margin-bottom: 27px;
+    }
+ 
+ 
+ 
+    #actualGame {
+       display: grid;
+       grid-template-columns: 1fr 0px 1fr;
+       grid-template-rows: 1fr 1fr 1fr;
+       justify-items: center;
+       align-items: center;
+       
+       width: calc(100% - 720px);
+       height: 600px;
+       background-color: #ECE5DB;
+       position: relative;
+    }
+    #target {
+       grid-column: 2 / 2;
+       grid-row: 2 / 2;
+       
+       width: 240px;
+       height: 240px;
+       /* transform: scale(1.2); */
+    }
+    #displayedTime {
+       grid-column: 2 / 2;
+       grid-row: 1 / 1;
+       
+       font-size: 480%;
+       font-weight: 300;
+       text-align: center;
+    }
+ 
+ 
+ 
+    .currentGoalText {
+       grid-column: 1 / 1;
+       grid-row: 2 / 2;
+       justify-self: end;
+       margin-right: 180px;
+       
+       width: 360px;
+       height: 72px;
+       font-size: 210%;
+       font-weight: 360;
+       text-align: center;   
+    }
+    .lowestGoalText {
+       grid-column: 3 / 3;
+       grid-row: 2 / 2;
+       justify-self: start;
+       margin-left: 180px;
+       
+       width: 360px;
+       height: 72px;
+       
+       font-size: 210%;
+       font-weight: 360;
+       text-align: center;
+    }
+ 
+ 
+ 
+    .starHolder {
+       grid-column: 2 / 2;
+       grid-row: 3 / 3;
+ 
+       display: flex;
+       justify-content: center;
+    }
+    .star {
+       margin: 0px 12px;
+       width: 120px;
+    }   
+ 
+ 
+ 
+    #previousAttemptsHolder {
+       display: grid;
+       grid-template-rows: repeat(5, 102px);
+       grid-template-columns: repeat(2, 156px);
+       justify-content: center;
+       align-content: center;
+       grid-auto-flow: column;
+       align-items: center;
+       
+       background-color: #DCD6CD;
+       
+       position: relative;
+       width: 360px;
+       height: 600px;
+    }
+    .gameMarginRight {
+       height: 18%;
+ 
+       font-weight: 300;
+       font-size: 108%;
+       text-align: center;
+    }
+ 
+ 
+ 
+    #logoLink {
+       margin-top: 36px;
+       margin-bottom: 0px;
+       margin-left: calc(50% - 76px);
+       transform: scale(1.2);
+    }
+ 
+ 
+ 
+    #lowerTextHolder {
+       background-color: #DCD6CD;
+       width: 720px;
+       height: 1464px;
+       margin-left: calc(50% - 360px);
+       margin-top: 36px;
+    }
+    #howToPlayHeader {
+       font-weight: bold;
+       font-size: 29px;
+       text-align: center;
+       letter-spacing: 2px;
+       
+       position: relative;
+       top: 29px;
+       margin-bottom: 48px;
+    }
+    #howToPlayListHolder {
+       font-size: 18px;
+       margin-top: 6px;
+    }
+    .listSetting {
+       text-align: justify;
+       line-height: 30px;
+ 
+       margin-top: 10px;
+       padding-right: 46px;
+    }     
+    .otherHeader {
+       font-weight: bold;
+       font-size: 29px;
+       text-align: center;
+       letter-spacing: 2px;
+       
+       position: relative;
+       margin-bottom: 19px;      
+    }
+    .otherListHolder {
+       font-size: 18px;
+    }
+ 
+
+   /* FOOTER BANNER */
+   #footerHolder {
+      height: 60px;
+      margin-top: 6px;
+   }
+   #homeFooter {
+      margin-left: calc(50% - 126px);
+      width: 95px;
+   }
+   #contactFooter {
+      margin-left: 24px;
+      position: absolute;
+      width: 130px;
+   }
+}
+ 
+    /* 100% */
+@media screen and (min-width: 1491px) and (max-width: 1800px) {
+ 
+    .headerRightElement {
+       font-size: 18px;
+       font-weight: bold;
+       color:rgb(0, 0, 0);
+       text-decoration: none;
+       text-align: center;
+     
+       display: inline-block;
+       padding-top: 7px;
+     }    
+    .headerRightElement:hover {
+       color:rgb(138, 0, 126);
+       font-size: 20px;
+       padding-top: 6px;
+     }
+    .headerBannerHolder {
+       height: 40px;
+       margin-top: 8px;
+    }
+    #home {
+       width: 99px;
+       margin-left: calc(50% - 283px);
+    }
+    #ourMission {
+       width: 167px;
+       position: absolute;
+       margin-left: 10px;
+    }
+    #logIn {
+       width: 104px;
+       position: absolute;
+       margin-left: 187px;
+    }
+    #getStarted {
+       width: 164px;
+       position: absolute;
+       margin-left: 301px;
+    }
+ 
+ 
+ 
+    .header {
+       text-align: center;
+       margin: 0;
+       padding-bottom: 15px;
+       
+       font-size: 40px;
+       font-weight: bold;
+       letter-spacing: 5px;
+    }
+    #gameHolder {
+       display: flex;
+       width: 100%;
+    }
+ 
+ 
+ 
+    #leftDataHolder {
+       display: flex;
+       flex-direction: column;
+       justify-content: center;
+       
+       background-color: #DCD6CD;
+       width: 300px;
+       height: 500px;
+       position: relative;
+    }
+    .gameMarginLeft {
+       font-weight: 300;
+       font-size: 110%;
+       text-align: right;
+       margin-right: 44px;
+       margin-top: 22px;
+       margin-bottom: 22px;
+    }
+ 
+ 
+ 
+    #actualGame {
+       display: grid;
+       grid-template-columns: 1fr 0px 1fr;
+       grid-template-rows: 1fr 1fr 1fr;
+       justify-items: center;
+       align-items: center;
+       
+       width: calc(100% - 600px);
+       height: 500px;
+       background-color: #ECE5DB;
+       position: relative;
+    }
+    #target {
+       grid-column: 2 / 2;
+       grid-row: 2 / 2;
+       
+       width: 200px;
+       height: 200px;
+    }
+    #displayedTime {
+       grid-column: 2 / 2;
+       grid-row: 1 / 1;
+       
+       font-size: 400%;
+       font-weight: 300;
+       text-align: center;
+    }
+ 
+ 
+ 
+    .currentGoalText {
+       grid-column: 1 / 1;
+       grid-row: 2 / 2;
+       justify-self: end;
+       margin-right: 150px;
+       
+       width: 300px;
+       height: 60px;
+       font-size: 175%;
+       font-weight: 300;
+       text-align: center;   
+    }
+    .lowestGoalText {
+       grid-column: 3 / 3;
+       grid-row: 2 / 2;
+       justify-self: start;
+       margin-left: 150px;
+       
+       width: 300px;
+       height: 60px;
+       
+       font-size: 175%;
+       font-weight: 300;
+       text-align: center;
+    }
+ 
+ 
+ 
+    .starHolder {
+       grid-column: 2 / 2;
+       grid-row: 3 / 3;
+ 
+       display: flex;
+       justify-content: center;
+    }
+    .star {
+       margin: 0px 10px;
+       width: 100px;
+    }   
+ 
+ 
+ 
+    #previousAttemptsHolder {
+       display: grid;
+       grid-template-rows: repeat(5, 85px);
+       grid-template-columns: repeat(2, 130px);
+       justify-content: center;
+       align-content: center;
+       grid-auto-flow: column;
+       align-items: center;
+       
+       background-color: #DCD6CD;
+       
+       position: relative;
+       width: 300px;
+       height: 500px;
+    }
+    .gameMarginRight {
+       height: 15%;
+ 
+       font-weight: 300;
+       font-size: 90%;
+       text-align: center;
+    }
+ 
+ 
+ 
+    #logoLink {
+       margin-top: 30px;
+       margin-bottom: 0px;
+       margin-left: calc(50% - 63px);
+    }
+ 
+ 
+ 
+    #lowerTextHolder {
+       background-color: #DCD6CD;
+       width: 600px;
+       height: 1220px;
+       margin-left: calc(50% - 300px);
+       margin-top: 30px;
+    }
+    #howToPlayHeader {
+       font-weight: bold;
+       font-size: 24px;
+       text-align: center;
+       letter-spacing: 2px;
+       
+       position: relative;
+       top: 24px;
+       margin-bottom: 40px;
+    }
+    #howToPlayListHolder {
+       font-size: 15px;
+       margin-top: 5px;
+    }
+    .listSetting {
+       text-align: justify;
+       line-height: 25px;
+ 
+       margin-top: 8px;
+       padding-right: 38px;
+    }     
+    .otherHeader {
+       font-weight: bold;
+       font-size: 24px;
+       text-align: center;
+       letter-spacing: 2px;
+       
+       position: relative;
+       margin-bottom: 16px;      
+    }
+    .otherListHolder {
+       font-size: 15px;
+    }
+
+
+
+    /* FOOTER BANNER */
+   #footerHolder {
+      height: 50px;
+      margin-top: 5px;
+   }
+   #homeFooter {
+      margin-left: calc(50% - 105px);
+      width: 79px;
+   }
+   #contactFooter {
+      margin-left: 20px;
+      position: absolute;
+      width: 108px;
+   }
+          
+}
+ 
+    /* 80% */
+@media screen and (min-width: 1211px) and (max-width: 1490px) {
+ 
+    .headerRightElement {
+       font-size: 14px;
+       font-weight: bold;
+       color:rgb(0, 0, 0);
+       text-decoration: none;
+       text-align: center;
+     
+       display: inline-block;
+       padding-top: 6px;
+     }    
+    .headerRightElement:hover {
+       color:rgb(138, 0, 126);
+       font-size: 16px;
+       padding-top: 5px;
+     }
+    .headerBannerHolder {
+       height: 32px;
+       margin-top: 6px;
+    }
+    #home {
+       width: 79px;
+       margin-left: calc(50% - 226px);
+    }
+    #ourMission {
+       width: 134px;
+       position: absolute;
+       margin-left: 8px;
+    }
+    #logIn {
+       width: 83px;
+       position: absolute;
+       margin-left: 150px;
+    }
+    #getStarted {
+       width: 131px;
+       position: absolute;
+       margin-left: 241px;
+    }
+ 
+ 
+ 
+    .header {
+       text-align: center;
+       margin: 0;
+       padding-bottom: 12px;
+       
+       font-size: 32px;
+       font-weight: bold;
+       letter-spacing: 4px;
+    }
+    #gameHolder {
+       display: flex;
+    }
+ 
+ 
+ 
+    #leftDataHolder {
+       display: flex;
+       flex-direction: column;
+       justify-content: center;
+       
+       background-color: #DCD6CD;
+       width: 240px;
+       height: 400px;
+       position: relative;
+    }
+    .gameMarginLeft {
+       font-weight: 300;
+       font-size: 88%;
+       text-align: right;
+       margin-right: 35px;
+       margin-top: 18px;
+       margin-bottom: 18px;
+    }
+ 
+ 
+ 
+    #actualGame {
+       display: grid;
+       grid-template-columns: 1fr 0px 1fr;
+       grid-template-rows: 1fr 1fr 1fr;
+       justify-items: center;
+       align-items: center;
+       
+       width: calc(100% - 480px);
+       height: 400px;
+       background-color: #ECE5DB;
+       position: relative;
+    }
+    #target {
+       grid-column: 2 / 2;
+       grid-row: 2 / 2;
+       
+       width: 160px;
+       height: 160px;
+    }
+    #displayedTime {
+       grid-column: 2 / 2;
+       grid-row: 1 / 1;
+       
+       font-size: 320%;
+       font-weight: 300;
+       text-align: center;
+    }
+ 
+ 
+ 
+    .currentGoalText {
+       grid-column: 1 / 1;
+       grid-row: 2 / 2;
+       justify-self: end;
+       margin-right: 120px;
+       
+       width: 240px;
+       height: 48px;
+       font-size: 140%;
+       font-weight: 300;
+       text-align: center;   
+    }
+    .lowestGoalText {
+       grid-column: 3 / 3;
+       grid-row: 2 / 2;
+       justify-self: start;
+       margin-left: 120px;
+       
+       width: 240px;
+       height: 48px;
+       
+       font-size: 140%;
+       font-weight: 300;
+       text-align: center;
+    }
+ 
+ 
+ 
+    .starHolder {
+       grid-column: 2 / 2;
+       grid-row: 3 / 3;
+ 
+       display: flex;
+       justify-content: center;
+    }
+    .star {
+       margin: 0px 8px;
+       width: 80px;
+    }   
+ 
+ 
+ 
+    #previousAttemptsHolder {
+       display: grid;
+       grid-template-rows: repeat(5, 68px);
+       grid-template-columns: repeat(2, 104px);
+       justify-content: center;
+       align-content: center;
+       grid-auto-flow: column;
+       align-items: center;
+       
+       background-color: #DCD6CD;
+       
+       position: relative;
+       width: 240px;
+       height: 400px;
+    }
+    .gameMarginRight {
+       height: 12%;
+ 
+       font-weight: 300;
+       font-size: 72%;
+       text-align: center;
+    }
+ 
+ 
+ 
+    #logoLink {
+       margin-top: 24px;
+       margin-bottom: 0px;
+       margin-left: calc(50% - 50px);
+    }
+ 
+ 
+ 
+    #lowerTextHolder {
+       background-color: #DCD6CD;
+       width: 480px;
+       height: 976px;
+       margin-left: calc(50% - 240px);
+       margin-top: 24px;
+    }
+    #howToPlayHeader {
+       font-weight: bold;
+       font-size: 19px;
+       text-align: center;
+       letter-spacing: 2px;
+       
+       position: relative;
+       top: 19px;
+       margin-bottom: 32px;
+    }
+    #howToPlayListHolder {
+       font-size: 15px;
+       margin-top: 5px;
+    }
+    .listSetting {
+       text-align: justify;
+       line-height: 20px;
+ 
+       margin-top: 6px;
+       padding-right: 30px;
+    }     
+    .otherHeader {
+       font-weight: bold;
+       font-size: 19px;
+       text-align: center;
+       letter-spacing: 2px;
+       
+       position: relative;
+       margin-bottom: 13px;      
+    }
+    .otherListHolder {
+       font-size: 12px;
+    }
+
+
+
+   /* FOOTER BANNER */
+   #footerHolder {
+      height: 40px;
+      margin-top: 4px;
+   }
+   #homeFooter {
+      margin-left: calc(50% - 84px);
+      width: 63px;
+   }
+   #contactFooter {
+      margin-left: 16px;
+      position: absolute;
+      width: 86px;
+   }
+}
+ 
+    /* 60% */
+@media screen and (max-width: 1210px) {
+ 
+    .headerRightElement {
+       font-size: 11px;
+       font-weight: bold;
+       color:rgb(0, 0, 0);
+       text-decoration: none;
+       text-align: center;
+     
+       display: inline-block;
+       padding-top: 4px;
+     }    
+    .headerRightElement:hover {
+       color:rgb(138, 0, 126);
+       font-size: 12px;
+       padding-top: 4px;
+     }
+    .headerBannerHolder {
+       height: 24px;
+       margin-top: 5px;
+    }
+    #home {
+       width: 59px;
+       margin-left: calc(50% - 170px);
+    }
+    #ourMission {
+       width: 100px;
+       position: absolute;
+       margin-left: 6px;
+    }
+    #logIn {
+       width: 62px;
+       position: absolute;
+       margin-left: 112px;
+    }
+    #getStarted {
+       width: 98px;
+       position: absolute;
+       margin-left: 181px;
+    }
+ 
+ 
+ 
+    .header {
+       text-align: center;
+       margin: 0;
+       padding-bottom: 9px;
+       
+       font-size: 24px;
+       font-weight: bold;
+       letter-spacing: 3px;
+    }
+    #gameHolder {
+       display: flex;
+    }
+ 
+ 
+ 
+    #leftDataHolder {
+       display: flex;
+       flex-direction: column;
+       justify-content: center;
+       
+       background-color: #DCD6CD;
+       width: 180px;
+       height: 300px;
+       position: relative;
+    }
+    .gameMarginLeft {
+       font-weight: 300;
+       font-size: 66%;
+       text-align: right;
+       margin-right: 26px;
+       margin-top: 13px;
+       margin-bottom: 13px;
+    }
+ 
+ 
+ 
+    #actualGame {
+       display: grid;
+       grid-template-columns: 1fr 0px 1fr;
+       grid-template-rows: 1fr 1fr 1fr;
+       justify-items: center;
+       align-items: center;
+       
+       width: calc(100% - 360px);
+       height: 300px;
+       background-color: #ECE5DB;
+       position: relative;
+    }
+    #target {
+       grid-column: 2 / 2;
+       grid-row: 2 / 2;
+       
+       width: 120px;
+       height: 120px;
+    }
+    #displayedTime {
+       grid-column: 2 / 2;
+       grid-row: 1 / 1;
+       
+       font-size: 240%;
+       font-weight: 300;
+       text-align: center;
+    }
+ 
+ 
+ 
+    .currentGoalText {
+       grid-column: 1 / 1;
+       grid-row: 2 / 2;
+       justify-self: end;
+       margin-right: 90px;
+       
+       width: 180px;
+       height: 36px;
+       font-size: 105%;
+       font-weight: 300;
+       text-align: center;   
+    }
+    .lowestGoalText {
+       grid-column: 3 / 3;
+       grid-row: 2 / 2;
+       justify-self: start;
+       margin-left: 90px;
+       
+       width: 180px;
+       height: 36px;
+       
+       font-size: 105%;
+       font-weight: 300;
+       text-align: center;
+    }
+ 
+ 
+ 
+    .starHolder {
+       grid-column: 2 / 2;
+       grid-row: 3 / 3;
+ 
+       display: flex;
+       justify-content: center;
+    }
+    .star {
+       margin: 0px 6px;
+       width: 60px;
+    }   
+ 
+ 
+ 
+    #previousAttemptsHolder {
+       display: grid;
+       grid-template-rows: repeat(5, 51px);
+       grid-template-columns: repeat(2, 78px);
+       justify-content: center;
+       align-content: center;
+       grid-auto-flow: column;
+       align-items: center;
+       
+       background-color: #DCD6CD;
+       
+       position: relative;
+       width: 180px;
+       height: 300px;
+    }
+    .gameMarginRight {
+       height: 9%;
+ 
+       font-weight: 300;
+       font-size: 54%;
+       text-align: center;
+    }
+ 
+ 
+ 
+    #logoLink {
+       margin-top: 18px;
+       margin-bottom: 0px;
+       margin-left: calc(50% - 38px);
+    }
+ 
+ 
+ 
+    #lowerTextHolder {
+       background-color: #DCD6CD;
+       width: 360px;
+       height: 732px;
+       margin-left: calc(50% - 180px);
+       margin-top: 18px;
+    }
+    #howToPlayHeader {
+       font-weight: bold;
+       font-size: 14px;
+       text-align: center;
+       letter-spacing: 1px;
+       
+       position: relative;
+       top: 14px;
+       margin-bottom: 24px;
+    }
+    #howToPlayListHolder {
+       font-size: 9px;
+       margin-top: 3px;
+    }
+    .listSetting {
+       text-align: justify;
+       line-height: 15px;
+ 
+       margin-top: 5px;
+       padding-right: 23px;
+    }     
+    .otherHeader {
+       font-weight: bold;
+       font-size: 14px;
+       text-align: center;
+       letter-spacing: 1px;
+       
+       position: relative;
+       margin-bottom: 10px;      
+    }
+    .otherListHolder {
+       font-size: 9px;
+    }
+
+
+   /* FOOTER BANNER */
+   #footerHolder {
+      height: 30px;
+      margin-top: 3px;
+   }
+   #homeFooter {
+      margin-left: calc(50% - 63px);
+      width: 47px;
+   }
+   #contactFooter {
+      margin-left: 12px;
+      position: absolute;
+      width: 65px;
+   }
+}
